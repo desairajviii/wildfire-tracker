@@ -18,15 +18,36 @@ import { getOwnerId } from "./owner.js";
  *   await api(`/api/trip-plans/${id}`, { method: "DELETE" });
  */
 export async function api(path, { method = "GET", body } = {}) {
-  // TODO:
-  // 1. Headers: always send X-Owner-Id: getOwnerId() (harmless on public routes; the
-  //    optional ones use it for isMine). Add Content-Type: application/json only when
-  //    there is a body.
-  // 2. fetch(path, { method, headers, body: JSON.stringify(body) when body is present }).
-  // 3. 204 No Content (deletes): return null, there is no body to parse.
-  // 4. Parse the JSON body. If parsing fails (e.g. an HTML 404 from a mistyped path),
-  //    fall back to an error built from res.status.
-  // 5. If !res.ok: throw new Error(data.error || `Request failed (${res.status})`).
-  //    Pages catch it and show the message to the user.
-  // 6. Return the parsed data.
+  // 1. Owner ID on every request; JSON header only when sending a body
+  const headers = { "X-Owner-Id": getOwnerId() };
+  const options = { method, headers };
+
+  if (body !== undefined) {
+    headers["Content-Type"] = "application/json";
+    options.body = JSON.stringify(body);
+  }
+
+  // 2. Make the request
+  const res = await fetch(path, options);
+
+  // 3. Deletes return 204 with no body
+  if (res.status === 204) {
+    return null;
+  }
+
+  // 4. Parse JSON; an HTML error page (like a mistyped path) won't parse
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    throw new Error(`Request failed (${res.status})`);
+  }
+
+  // 5. Turn server errors into a thrown Error with the server's message
+  if (!res.ok) {
+    throw new Error(data?.error || `Request failed (${res.status})`);
+  }
+
+  // 6. Success
+  return data;
 }
