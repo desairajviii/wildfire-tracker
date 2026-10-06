@@ -4,10 +4,11 @@
   "type": "module",
   "license": "MIT",
   "engines": {
-    "node": ">=20.19"
+    "node": "22.x"
   },
   "scripts": {
     "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
     "seed": "node backend/db/seed.js",
     "lint": "eslint .",
     "format": "prettier --write .",
