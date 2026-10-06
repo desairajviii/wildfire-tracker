@@ -1,9 +1,7 @@
 // Reads the anonymous owner ID each browser sends (see frontend/js/owner.js)
 // requireOwner: header must be present and a valid UUID.
 // optionalOwner: header may be absent; if present, it must be valid
-const UUID =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // function to build the middleware
 // args: required = true/false -> true for required owner
@@ -22,7 +20,7 @@ function ownerMiddleware(required) {
       return res.status(400).json({ error: "Invalid X-Owner-Id header" });
 
     // hand ID to route
-    req.ownerId = id.toLowerCase(); 
+    req.ownerId = id.toLowerCase();
     next();
   };
 }

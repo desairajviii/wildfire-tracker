@@ -38,7 +38,7 @@ function historyStartDate() {
 // function to load data
 // arg useCache: true when npm run seed -- --cache is run, false when --cache is omitted
 async function loadSource(useCache) {
-  // if useCache is true, try to load data from cache 
+  // if useCache is true, try to load data from cache
   if (useCache) {
     try {
       return JSON.parse(await readFile(CACHE_FILE, "utf8"));

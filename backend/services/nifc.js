@@ -8,7 +8,7 @@ export const LAYERS = {
   current: "WFIGS_Incident_Locations_Current", // active fires
 };
 
-// functin to fetch 
+// functin to fetch
 // parameters: layer = dataset (LAYERS.history, LAYERS.current),
 // {outfields = columns to return, where = filter}
 export async function fetchAllFeatures(
