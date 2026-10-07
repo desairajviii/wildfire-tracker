@@ -13,7 +13,7 @@ export const LAYERS = {
 // {outfields = columns to return, where = filter}
 export async function fetchAllFeatures(
   layer,
-  { outFields = "*", where = "1=1" } = {},
+  { outFields = "*", where = "1=1" } = {}
 ) {
   const features = [];
   for (let offset = 0; ;) {
