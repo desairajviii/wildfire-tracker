@@ -107,7 +107,7 @@ function buildFires(history, current) {
     current
       .map((f) => f.properties.IrwinID)
       .filter(Boolean) // remove missing IDs
-      .map(normalizeId),
+      .map(normalizeId)
   );
 
   // // Combine the list of fires
@@ -119,7 +119,7 @@ function buildFires(history, current) {
 
   console.log(
     `Fetched ${history.length} history + ${current.length} current; ` +
-      `${converted.length} valid, ${fires.length} unique.`,
+      `${converted.length} valid, ${fires.length} unique.`
   );
   return fires;
 }
@@ -150,7 +150,7 @@ async function writeSeedMeta(db) {
     .replaceOne(
       { _id: "seed" },
       { seededAt: new Date(), total, activeCount },
-      { upsert: true },
+      { upsert: true }
     );
   return { total, activeCount };
 }
@@ -158,14 +158,14 @@ async function writeSeedMeta(db) {
 // main seed function
 async function seed() {
   const { history, current } = await loadSource(
-    process.argv.includes("--cache"),
+    process.argv.includes("--cache")
   );
   const fires = buildFires(history, current);
 
   // check that number of surviving fires meets the min requirement, otherwise throw an error
   if (fires.length < MIN_FIRES)
     throw new Error(
-      `Only ${fires.length} fires (minimum ${MIN_FIRES}); database left unchanged.`,
+      `Only ${fires.length} fires (minimum ${MIN_FIRES}); database left unchanged.`
     );
 
   const db = await connect(); // connect to db
