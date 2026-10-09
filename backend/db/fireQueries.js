@@ -14,7 +14,7 @@ const METERS_PER_MILE = 1609.34;
 export function findFiresNear(
   { lon, lat },
   radiusMiles,
-  { activeOnly = true } = {}
+  { activeOnly = true } = {},
 ) {
   return getDb()
     .collection("fires")

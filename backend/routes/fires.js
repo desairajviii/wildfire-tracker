@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
     const page = toPositiveInt(req.query.page, 1);
     const limit = Math.min(
       toPositiveInt(req.query.limit, DEFAULT_LIMIT),
-      MAX_LIMIT
+      MAX_LIMIT,
     );
 
     const filter = {};

@@ -18,12 +18,32 @@ const NAV_LINKS = [
  * Does nothing on pages without the nav element.
  */
 function renderNav() {
-  // TODO:
-  // 1. Find #site-nav; return if the page doesn't have one.
-  // 2. For each NAV_LINKS entry, create a real <a> element (rubric: standard HTML
-  //    elements, no clickable divs) and set its text with textContent, not innerHTML.
-  // 3. Add aria-current="page" to the link whose href matches the current page
-  //    (location.pathname); style that in the base CSS so the user sees where they are.
+  // 1. Find the nav; skip pages that don't have one
+  const nav = document.getElementById("site-nav");
+  if (!nav) {
+    return;
+  }
+
+  // "/" means the home page, so treat it as index.html
+  const currentPage = location.pathname.split("/").pop() || "index.html";
+
+  // 2. Build a real list of real <a> links
+  const list = document.createElement("ul");
+  for (const { href, label } of NAV_LINKS) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = href;
+    link.textContent = label;
+
+    // 3. Mark the page the user is on
+    if (href === currentPage) {
+      link.setAttribute("aria-current", "page");
+    }
+
+    item.append(link);
+    list.append(item);
+  }
+  nav.append(list);
 }
 
 renderNav();

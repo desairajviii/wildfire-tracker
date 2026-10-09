@@ -1,0 +1,33 @@
+.fires_filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.fires_table-wrap {
+  overflow-x: auto;
+}
+
+.fires_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fires_table th,
+.fires_table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.fires_pager {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.fires_error {
+  color: #b00020;
+}

@@ -3,9 +3,78 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Wildfire Tracker</title>
+    <title>Fires · Wildfire Tracker</title>
+    <link rel="stylesheet" href="css/fires.css" />
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/fireTable.js"></script>
   </head>
   <body>
-    <h1>Wildfire Tracker</h1>
+    <header>
+      <nav id="site-nav" aria-label="Main"></nav>
+    </header>
+
+    <main>
+      <h1>US Wildfires</h1>
+      <p id="fires-summary">Loading fires…</p>
+
+      <section aria-labelledby="filters-heading">
+        <h2 id="filters-heading">Filter fires</h2>
+        <form id="fire-filters" class="fires_filters">
+          <label for="state-filter">State</label>
+          <input
+            id="state-filter"
+            name="state"
+            maxlength="2"
+            pattern="[A-Za-z]{2}"
+            placeholder="e.g. CA"
+          />
+          <label>
+            <input type="checkbox" id="active-filter" name="active" />
+            Active only
+          </label>
+          <button type="submit">Apply</button>
+          <button type="reset">Clear</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="table-heading">
+        <h2 id="table-heading">Fire list</h2>
+        <p id="fires-error" class="fires_error" role="alert" hidden></p>
+        <div class="fires_table-wrap">
+          <table class="fires_table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">State</th>
+                <th scope="col">Acres</th>
+                <th scope="col">Discovered</th>
+                <th scope="col">Contained</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="fires-body"></tbody>
+          </table>
+        </div>
+        <div class="fires_pager">
+          <button type="button" id="prev-page">Previous</button>
+          <span id="page-info"></span>
+          <button type="button" id="next-page">Next</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="map-heading">
+        <h2 id="map-heading">Live wildfire map</h2>
+        <p>
+          Live map from Esri using NIFC data. It may not match the table above.
+        </p>
+        <iframe
+          title="Active US wildfires"
+          src="https://www.arcgis.com/apps/Embed/index.html?webmap=df8bcc10430f48878b01c96e907a1fc3&zoom=true&scale=true&disable_scroll=true&theme=light"
+          width="100%"
+          height="450"
+          loading="lazy"
+        ></iframe>
+      </section>
+    </main>
   </body>
 </html>
