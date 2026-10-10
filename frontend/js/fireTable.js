@@ -1,4 +1,5 @@
 import { api } from "./api.js";
+import { formatAcres, formatDate, formatContained } from "./format.js";
 
 const PAGE_SIZE = 25;
 
@@ -16,26 +17,6 @@ const els = {
   next: document.getElementById("next-page"),
   pageInfo: document.getElementById("page-info"),
 };
-
-// Null fields show "Unknown", never 0 or a blank
-function formatAcres(acres) {
-  return acres === null ? "Unknown" : acres.toLocaleString("en-US");
-}
-
-function formatDate(iso) {
-  if (!iso) {
-    return "Unknown";
-  }
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function formatContained(percent) {
-  return percent === null ? "Unknown" : `${percent}%`;
-}
 
 function renderRows(fires) {
   els.body.replaceChildren();
