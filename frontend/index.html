@@ -3,45 +3,57 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Fires · Wildfire Tracker</title>
+    <title>Fires | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/fires.css" />
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/fireTable.js"></script>
   </head>
   <body>
-    <header>
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
       <nav id="site-nav" aria-label="Main"></nav>
     </header>
 
     <main>
-      <h1>US Wildfires</h1>
-      <p id="fires-summary">Loading fires…</p>
+      <h1>US wildfires</h1>
+      <p id="fires-summary" class="note">Loading fires…</p>
 
       <section aria-labelledby="filters-heading">
         <h2 id="filters-heading">Filter fires</h2>
-        <form id="fire-filters" class="fires_filters">
-          <label for="state-filter">State</label>
-          <input
-            id="state-filter"
-            name="state"
-            maxlength="2"
-            pattern="[A-Za-z]{2}"
-            placeholder="e.g. CA"
-          />
-          <label>
+        <form id="fire-filters" class="fires_filters panel">
+          <div class="fires_field">
+            <label for="state-filter">State</label>
+            <input
+              id="state-filter"
+              name="state"
+              maxlength="2"
+              pattern="[A-Za-z]{2}"
+              placeholder="e.g. CA"
+            />
+          </div>
+          <label class="fires_check">
             <input type="checkbox" id="active-filter" name="active" />
-            Active only
+            Active fires only
           </label>
-          <button type="submit">Apply</button>
-          <button type="reset">Clear</button>
+          <div class="fires_buttons">
+            <button type="submit">Apply filters</button>
+            <button type="reset" class="button_secondary">Clear</button>
+          </div>
         </form>
       </section>
 
       <section aria-labelledby="table-heading">
         <h2 id="table-heading">Fire list</h2>
-        <p id="fires-error" class="fires_error" role="alert" hidden></p>
-        <div class="fires_table-wrap">
-          <table class="fires_table">
+        <p id="fires-error" class="message_error" role="alert" hidden></p>
+        <div class="table_wrap">
+          <table>
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -56,22 +68,26 @@
           </table>
         </div>
         <div class="fires_pager">
-          <button type="button" id="prev-page">Previous</button>
+          <button type="button" id="prev-page" class="button_secondary">
+            Previous
+          </button>
           <span id="page-info"></span>
-          <button type="button" id="next-page">Next</button>
+          <button type="button" id="next-page" class="button_secondary">
+            Next
+          </button>
         </div>
       </section>
 
       <section aria-labelledby="map-heading">
         <h2 id="map-heading">Live wildfire map</h2>
-        <p>
-          Live map from Esri using NIFC data. It may not match the table above.
+        <p class="note">
+          Live map from Esri using NIFC data. It updates on its own schedule, so
+          it may not match the table above.
         </p>
         <iframe
+          class="fires_map"
           title="Active US wildfires"
           src="https://www.arcgis.com/apps/Embed/index.html?webmap=df8bcc10430f48878b01c96e907a1fc3&zoom=true&scale=true&disable_scroll=true&theme=light"
-          width="100%"
-          height="450"
           loading="lazy"
         ></iframe>
       </section>

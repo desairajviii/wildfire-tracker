@@ -43,9 +43,10 @@ function showError(el, message) {
   el.hidden = !message;
 }
 
-function makeButton(label, onClick) {
+function makeButton(label, onClick, className) {
   const button = document.createElement("button");
   button.type = "button";
+  button.className = className;
   button.textContent = label;
   button.addEventListener("click", onClick);
   return button;
@@ -62,17 +63,31 @@ function renderList(items) {
     item.className = "watchlists_item";
 
     const title = document.createElement("strong");
+    title.className = "watchlists_item-name";
     title.textContent = watchlist.name;
 
     const info = document.createElement("span");
+    info.className = "watchlists_item-info";
     info.textContent = `${watchlist.radiusMiles} mile radius`;
 
     const actions = document.createElement("div");
     actions.className = "watchlists_actions";
     actions.append(
-      makeButton("View", () => showDetail(watchlist._id)),
-      makeButton("Edit", () => startEdit(watchlist)),
-      makeButton("Delete", () => removeWatchlist(watchlist))
+      makeButton(
+        "View",
+        () => showDetail(watchlist._id),
+        "button_secondary button_small"
+      ),
+      makeButton(
+        "Edit",
+        () => startEdit(watchlist),
+        "button_secondary button_small"
+      ),
+      makeButton(
+        "Delete",
+        () => removeWatchlist(watchlist),
+        "button_danger button_small"
+      )
     );
 
     item.append(title, info, actions);
@@ -206,7 +221,7 @@ async function showDetail(id) {
 
     const [lon, lat] = watchlist.location.coordinates;
     els.detailName.textContent = watchlist.name;
-    els.detailMeta.textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)} · ${watchlist.radiusMiles} mile radius`;
+    els.detailMeta.textContent = `Latitude ${lat.toFixed(4)}, longitude ${lon.toFixed(4)}. Watching a ${watchlist.radiusMiles}-mile radius.`;
     els.detailNotes.textContent = watchlist.notes;
     els.detailNotes.hidden = !watchlist.notes;
 

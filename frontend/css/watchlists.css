@@ -1,64 +1,93 @@
-.watchlists_list {
-  list-style: none;
-  padding: 0;
+/* List and form side by side on wide screens, stacked on phones */
+.watchlists_columns {
   display: grid;
-  gap: 0.75rem;
+  gap: 2rem;
+}
+
+@media (min-width: 56rem) {
+  .watchlists_columns {
+    grid-template-columns: 1fr 22rem;
+    align-items: start;
+  }
+}
+
+.watchlists_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
 }
 
 .watchlists_item {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
   align-items: center;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  gap: 0.4rem 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.watchlists_item:last-child {
+  border-bottom: 0;
+}
+
+.watchlists_item-name {
+  font-weight: 700;
+}
+
+.watchlists_item-info {
+  color: var(--color-muted);
+  font-size: 0.9rem;
 }
 
 .watchlists_actions {
-  margin-left: auto;
   display: flex;
   gap: 0.5rem;
+  margin-left: auto;
 }
 
 .watchlists_form {
   display: grid;
-  gap: 0.5rem;
-  max-width: 28rem;
+  gap: 0.35rem;
 }
 
-.watchlists_form-buttons {
+.watchlists_form label {
+  margin-top: 0.5rem;
+}
+
+.watchlists_coords {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.watchlists_coords div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.watchlists_coords input {
+  min-width: 0;
+}
+
+.watchlists_buttons {
   display: flex;
   gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-.watchlists_note {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.watchlists_error {
-  color: #b00020;
+.watchlists_detail {
+  margin-top: 3rem;
+  padding-top: 0.5rem;
+  border-top: 3px solid var(--color-forest);
 }
 
 .watchlists_map {
   width: 100%;
-  height: 350px;
-  border: 0;
-}
-
-.watchlists_table-wrap {
-  overflow-x: auto;
-}
-
-.watchlists_table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.watchlists_table th,
-.watchlists_table td {
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+  height: 320px;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
 }

@@ -3,13 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Watchlists · Wildfire Tracker</title>
+    <title>Watchlists | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/watchlists.css" />
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/watchlists.js"></script>
   </head>
   <body>
-    <header>
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
       <nav id="site-nav" aria-label="Main"></nav>
     </header>
 
@@ -17,88 +25,110 @@
       <h1>Watchlists</h1>
       <p>
         Save places you care about, like a family home, and see active fires
-        nearby.
+        within the distance you choose.
       </p>
-      <p id="page-error" class="watchlists_error" role="alert" hidden></p>
+      <p id="page-error" class="message_error" role="alert" hidden></p>
 
-      <section aria-labelledby="list-heading">
-        <h2 id="list-heading">Your places</h2>
-        <ul id="watchlist-list" class="watchlists_list"></ul>
-        <p id="list-empty" hidden>No places yet. Add one below.</p>
-      </section>
+      <div class="watchlists_columns">
+        <section aria-labelledby="list-heading">
+          <h2 id="list-heading">Your places</h2>
+          <ul id="watchlist-list" class="watchlists_list"></ul>
+          <p id="list-empty" class="panel note" hidden>
+            No places yet. Add one with the form to start watching for fires.
+          </p>
+        </section>
 
-      <section aria-labelledby="form-heading">
-        <h2 id="form-heading">Add a place</h2>
-        <p class="watchlists_note">Demo app, don't enter real personal info.</p>
-        <p class="watchlists_note">
-          Tip: to find coordinates, right-click a spot in Google Maps. The first
-          number is the latitude, the second is the longitude.
-        </p>
-        <form id="watchlist-form" class="watchlists_form">
-          <label for="watchlist-name">Name</label>
-          <input
-            id="watchlist-name"
-            name="name"
-            maxlength="100"
-            required
-            placeholder="e.g. Parents' house"
-          />
+        <section aria-labelledby="form-heading">
+          <h2 id="form-heading">Add a place</h2>
+          <form id="watchlist-form" class="watchlists_form panel">
+            <p class="note">
+              Demo app, so don't enter real personal info. To find coordinates,
+              right-click a spot in Google Maps: the first number is latitude,
+              the second is longitude.
+            </p>
 
-          <label for="watchlist-lat">Latitude</label>
-          <input
-            id="watchlist-lat"
-            name="lat"
-            type="number"
-            step="any"
-            min="-90"
-            max="90"
-            required
-            placeholder="e.g. 34.05"
-          />
+            <label for="watchlist-name">Name</label>
+            <input
+              id="watchlist-name"
+              name="name"
+              maxlength="100"
+              required
+              placeholder="e.g. Parents' house"
+            />
 
-          <label for="watchlist-lon">Longitude</label>
-          <input
-            id="watchlist-lon"
-            name="lon"
-            type="number"
-            step="any"
-            min="-180"
-            max="180"
-            required
-            placeholder="e.g. -118.24"
-          />
+            <div class="watchlists_coords">
+              <div>
+                <label for="watchlist-lat">Latitude</label>
+                <input
+                  id="watchlist-lat"
+                  name="lat"
+                  type="number"
+                  step="any"
+                  min="-90"
+                  max="90"
+                  required
+                  placeholder="34.05"
+                />
+              </div>
+              <div>
+                <label for="watchlist-lon">Longitude</label>
+                <input
+                  id="watchlist-lon"
+                  name="lon"
+                  type="number"
+                  step="any"
+                  min="-180"
+                  max="180"
+                  required
+                  placeholder="-118.24"
+                />
+              </div>
+            </div>
 
-          <label for="watchlist-radius">Radius (miles)</label>
-          <input
-            id="watchlist-radius"
-            name="radiusMiles"
-            type="number"
-            min="1"
-            max="500"
-            value="50"
-            required
-          />
+            <label for="watchlist-radius">Watch radius (miles)</label>
+            <input
+              id="watchlist-radius"
+              name="radiusMiles"
+              type="number"
+              min="1"
+              max="500"
+              value="50"
+              required
+            />
 
-          <label for="watchlist-notes">Notes (optional)</label>
-          <textarea
-            id="watchlist-notes"
-            name="notes"
-            maxlength="1000"
-            rows="3"
-          ></textarea>
+            <label for="watchlist-notes">Notes (optional)</label>
+            <textarea
+              id="watchlist-notes"
+              name="notes"
+              maxlength="1000"
+              rows="3"
+            ></textarea>
 
-          <p id="form-error" class="watchlists_error" role="alert" hidden></p>
+            <p id="form-error" class="message_error" role="alert" hidden></p>
 
-          <div class="watchlists_form-buttons">
-            <button type="submit">Save</button>
-            <button type="button" id="cancel-edit" hidden>Cancel</button>
-          </div>
-        </form>
-      </section>
+            <div class="watchlists_buttons">
+              <button type="submit">Save place</button>
+              <button
+                type="button"
+                id="cancel-edit"
+                class="button_secondary"
+                hidden
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
 
-      <section id="watchlist-detail" aria-labelledby="detail-name" hidden>
+      <section
+        id="watchlist-detail"
+        class="watchlists_detail"
+        aria-labelledby="detail-name"
+        hidden
+      >
         <h2 id="detail-name"></h2>
-        <p id="detail-meta"></p>
+        <p id="detail-meta" class="note"></p>
         <p id="detail-notes" hidden></p>
         <iframe
           id="detail-map"
@@ -109,8 +139,8 @@
 
         <h3>Active fires nearby</h3>
         <p id="fires-summary"></p>
-        <div class="watchlists_table-wrap">
-          <table id="nearby-fires-table" class="watchlists_table">
+        <div class="table_wrap">
+          <table id="nearby-fires-table">
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -122,7 +152,11 @@
             <tbody id="nearby-fires-body"></tbody>
           </table>
         </div>
-        <button type="button" id="close-detail">Close</button>
+        <p>
+          <button type="button" id="close-detail" class="button_secondary">
+            Close
+          </button>
+        </p>
       </section>
     </main>
   </body>

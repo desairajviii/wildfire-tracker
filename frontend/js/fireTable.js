@@ -25,6 +25,7 @@ function renderRows(fires) {
     const row = document.createElement("tr");
     const cell = document.createElement("td");
     cell.colSpan = 6;
+    cell.className = "table_empty";
     cell.textContent = "No fires match these filters.";
     row.append(cell);
     els.body.append(row);
@@ -46,6 +47,9 @@ function renderRows(fires) {
       cell.textContent = value;
       row.append(cell);
     }
+    row.lastElementChild.className = fire.isActive
+      ? "status_active"
+      : "status_inactive";
     els.body.append(row);
   }
 }

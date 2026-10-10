@@ -1,0 +1,266 @@
+/* Shared styles for every page. Page files only add layout for their own parts. */
+
+:root {
+  --color-ink: #1d2b24;
+  --color-paper: #f4f6f1;
+  --color-surface: #ffffff;
+  --color-forest: #24533a;
+  --color-forest-dark: #173a28;
+  --color-forest-tint: #e6eee8;
+  --color-ember: #d9480f;
+  --color-line: #d5dbd2;
+  --color-muted: #59695f;
+  --color-danger: #b42318;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --page-width: 64rem;
+  --radius: 6px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--color-ink);
+  background: var(--color-paper);
+}
+
+/* ----- Header and nav ----- */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 0.85rem;
+  /* Lines the header content up with the page content */
+  padding-inline: max(1.25rem, calc((100% - var(--page-width)) / 2 + 1.25rem));
+  background: var(--color-forest);
+  color: #ffffff;
+}
+
+.site-header_brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.site-header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-header nav a {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  color: #e3ece6;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.site-header nav a:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.site-header nav a[aria-current="page"] {
+  background: #ffffff;
+  color: var(--color-forest);
+  font-weight: 700;
+}
+
+/* ----- Page and type ----- */
+
+main {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem 4rem;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+h2 {
+  margin: 2.5rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--color-forest);
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ember);
+  outline-offset: 2px;
+}
+
+/* ----- Buttons ----- */
+
+button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-forest);
+  border-radius: 4px;
+  background: var(--color-forest);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: var(--color-forest-dark);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.button_secondary {
+  background: transparent;
+  color: var(--color-forest);
+}
+
+.button_secondary:hover:not(:disabled) {
+  background: var(--color-forest-tint);
+}
+
+.button_danger {
+  border-color: var(--color-danger);
+  background: transparent;
+  color: var(--color-danger);
+}
+
+.button_danger:hover:not(:disabled) {
+  background: #fdeceb;
+}
+
+.button_small {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+/* ----- Forms ----- */
+
+label {
+  font-weight: 600;
+}
+
+input,
+textarea {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #a7b3aa;
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: inherit;
+}
+
+input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-forest);
+}
+
+input:user-invalid,
+textarea:user-invalid {
+  border-color: var(--color-danger);
+}
+
+/* ----- Tables ----- */
+
+.table_wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+th {
+  padding: 0.65rem 0.8rem;
+  border-bottom: 2px solid var(--color-ink);
+  text-align: left;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:hover {
+  background: #f0f4ef;
+}
+
+.table_empty {
+  padding: 1.25rem 0.8rem;
+  color: var(--color-muted);
+}
+
+/* ----- Shared bits ----- */
+
+.status_active {
+  color: var(--color-ember);
+  font-weight: 700;
+}
+
+.status_inactive {
+  color: var(--color-muted);
+}
+
+.message_error {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.note {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.panel {
+  padding: 1.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
