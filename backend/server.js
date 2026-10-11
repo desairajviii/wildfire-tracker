@@ -14,11 +14,5 @@ app.use(express.static(FRONTEND_DIR));
 app.use("/api/fires", firesRouter);
 app.use("/api/watchlists", watchlistsRouter);
 
-// FOR /API/FIRES
-// TODO(Rajvi): mount /api/fires here, from backend/routes/fires.js
-// Cap results with ?limit= (default 100, max 500) using .limit() in Mongo
-// Don't pass 0 or NaN: .limit(0) returns all 197,970 docs
-// Sort on an indexed field (_id) and project only the fields the UI uses
-
 await connect();
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
