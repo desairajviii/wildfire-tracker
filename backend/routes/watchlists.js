@@ -8,6 +8,7 @@ import {
   updateWatchlist,
   deleteWatchlist,
 } from "../db/watchlists.js";
+import { toNumber } from "../utils/parse.js";
 
 const router = express.Router();
 
@@ -15,15 +16,6 @@ const router = express.Router();
 router.use(requireOwner);
 
 const MAX_RADIUS_MILES = 500;
-
-// Empty strings and missing values become NaN, so they fail the checks
-// (otherwise Number("") would quietly become 0, a real coordinate)
-function toNumber(value) {
-  if (value === undefined || value === null || value === "") {
-    return NaN;
-  }
-  return Number(value);
-}
 
 // Checks the form data and turns it into what we store.
 // Returns { errors } if something is wrong, otherwise { data }.

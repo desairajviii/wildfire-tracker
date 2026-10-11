@@ -1,13 +1,7 @@
-import { ObjectId } from "mongodb";
 import { getDb } from "./connection.js";
+import { toObjectId } from "./ids.js";
 
 const watchlists = () => getDb().collection("watchlists");
-
-// Turns a string ID into an ObjectId, or null if it isn't a valid one
-// (so a bad ID in the URL becomes a 404 instead of a crash)
-function toObjectId(id) {
-  return /^[a-f\d]{24}$/i.test(id) ? new ObjectId(id) : null;
-}
 
 export async function createWatchlist(ownerId, data) {
   const doc = { ownerId, ...data, createdAt: new Date() };
