@@ -48,7 +48,7 @@ function parseWatchlist(body = {}) {
   const radiusMiles = toNumber(body.radiusMiles);
   if (
     !Number.isFinite(radiusMiles) ||
-    radiusMiles <= 0 ||
+    radiusMiles < 1 ||
     radiusMiles > MAX_RADIUS_MILES
   ) {
     errors.push(`Radius must be between 1 and ${MAX_RADIUS_MILES} miles.`);
