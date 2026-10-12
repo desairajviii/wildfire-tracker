@@ -9,6 +9,7 @@ import {
   deleteWatchlist,
 } from "../db/watchlists.js";
 import { toNumber } from "../utils/parse.js";
+import { withErrors } from "../utils/withErrors.js";
 
 const router = express.Router();
 
@@ -63,18 +64,6 @@ function parseWatchlist(body = {}) {
       radiusMiles,
       notes,
     },
-  };
-}
-
-// Catches unexpected errors so every route returns { error } instead of crashing
-function withErrors(handler) {
-  return async (req, res) => {
-    try {
-      await handler(req, res);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Something went wrong" });
-    }
   };
 }
 
