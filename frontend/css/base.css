@@ -176,6 +176,7 @@ label {
 }
 
 input,
+select,
 textarea {
   padding: 0.5rem 0.65rem;
   border: 1px solid #a7b3aa;
@@ -192,6 +193,7 @@ input[type="checkbox"] {
 }
 
 input:user-invalid,
+select:user-invalid,
 textarea:user-invalid {
   border-color: var(--color-danger);
 }

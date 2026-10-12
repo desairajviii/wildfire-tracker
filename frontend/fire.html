@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fire | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/fire.css" />
+    <link rel="stylesheet" href="css/reports.css" />
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/fireDetail.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
+      <nav id="site-nav" aria-label="Main"></nav>
+    </header>
+
+    <main>
+      <p class="fire_back"><a href="index.html">Back to all fires</a></p>
+      <h1 id="fire-name">Loading fire…</h1>
+      <p id="page-error" class="message_error" role="alert" hidden></p>
+      <p id="fire-missing" class="panel" hidden></p>
+
+      <div id="fire-content" hidden>
+        <section aria-labelledby="details-heading">
+          <h2 id="details-heading">Fire details</h2>
+          <div class="fire_overview">
+            <dl id="fire-details" class="fire_details"></dl>
+            <iframe
+              id="fire-map"
+              class="fire_map"
+              title="Map of the fire's location"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </section>
+
+        <section aria-labelledby="reports-heading">
+          <h2 id="reports-heading">Reports from people nearby</h2>
+          <p class="note">
+            App users post these reports, and they aren't verified. For
+            evacuation orders, follow your local officials.
+          </p>
+          <p id="reports-error" class="message_error" role="alert" hidden></p>
+          <ul id="reports-list" class="reports_list" hidden></ul>
+          <p id="reports-empty" class="panel note" hidden>
+            No reports yet. If you see smoke, a road closure, or an evacuation,
+            post it below.
+          </p>
+
+          <h3 id="report-form-heading">Post a report</h3>
+          <form id="report-form" class="reports_form panel">
+            <p class="note">Demo app, so don't enter real personal info.</p>
+
+            <label for="report-type">What did you see?</label>
+            <select id="report-type" name="type" required>
+              <option value="">Choose one</option>
+              <option value="smoke">Smoke</option>
+              <option value="road_closure">Road closure</option>
+              <option value="evacuation">Evacuation</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label for="report-description">Details</label>
+            <textarea
+              id="report-description"
+              name="description"
+              maxlength="1000"
+              rows="4"
+              required
+              placeholder="e.g. Heavy smoke on Highway 1 near the exit"
+            ></textarea>
+
+            <p
+              id="report-form-error"
+              class="message_error"
+              role="alert"
+              hidden
+            ></p>
+
+            <div class="reports_buttons">
+              <button type="submit" id="report-submit">Post report</button>
+              <button
+                type="button"
+                id="report-cancel"
+                class="button_secondary"
+                hidden
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

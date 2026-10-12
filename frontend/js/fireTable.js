@@ -1,5 +1,6 @@
 import { api } from "./api.js";
 import { formatAcres, formatDate, formatContained } from "./format.js";
+import { makeFireLink } from "./dom.js";
 
 const PAGE_SIZE = 25;
 
@@ -34,8 +35,12 @@ function renderRows(fires) {
 
   for (const fire of fires) {
     const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    nameCell.append(makeFireLink(fire));
+    row.append(nameCell);
+
     const values = [
-      fire.name,
       fire.state ?? "Unknown",
       formatAcres(fire.acres),
       formatDate(fire.discoveredAt),
@@ -50,6 +55,7 @@ function renderRows(fires) {
     row.lastElementChild.className = fire.isActive
       ? "status_active"
       : "status_inactive";
+
     els.body.append(row);
   }
 }

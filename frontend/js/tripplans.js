@@ -1,8 +1,8 @@
 import { api } from "./api.js";
 import { osmEmbedUrl } from "./embeds.js";
-import { formatAcres, formatContained, formatDate } from "./format.js";
+import { makeButton, showError } from "./dom.js";
+import { renderNearbyFires, mapPadForMiles } from "./nearbyFires.js";
 
-const MILES_PER_DEGREE = 69;
 const byId = (id) => document.getElementById(id);
 
 // Page elements
@@ -39,25 +39,6 @@ const fields = {
 // Track which trip is being edited/shown, or null
 let editingId = null;
 let openDetailId = null;
-
-// Helper functions
-// shows errror message in an element or hides the element when the mesage
-// is empty
-// takes in the error and the error message
-function showError(el, message) {
-  el.textContent = message;
-  el.hidden = !message;
-}
-
-// creates a button with a label, click handleer, and classes
-function makeButton(label, onClick, className) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = className;
-  button.textContent = label;
-  button.addEventListener("click", onClick);
-  return button;
-}
 
 // Formats one trip date for display
 // Trip dates are stored as UTC midnight, so format them in UTC.
@@ -129,7 +110,7 @@ function renderList(items) {
   }
 }
 
-// function to fetch the user's trip and render them
+// function to fetch the user's trips and render them
 // shows a page error on failure
 async function loadList() {
   try {
@@ -182,7 +163,7 @@ function stopEdit() {
 
 // save the form
 els.form.addEventListener("submit", async (event) => {
-  event.preventDefault(); // stop browser's page-reloading suvmit
+  event.preventDefault(); // stop the browser's page-reloading submit
 
   const body = {
     trailName: fields.trailName.value,
@@ -216,7 +197,7 @@ els.form.addEventListener("submit", async (event) => {
 // leave edit mode without saving
 els.cancelEdit.addEventListener("click", stopEdit);
 
-// function to dleete a trip after confirming
+// function to delete a trip after confirming
 async function removeTrip(trip) {
   if (!confirm(`Delete "${trip.trailName}"?`)) {
     return;
@@ -235,41 +216,6 @@ async function removeTrip(trip) {
   }
 }
 
-// Fills the nearby fires summary and table or shows "none"
-function renderNearbyFires(fires, bufferMiles) {
-  els.firesBody.replaceChildren();
-  els.firesTable.hidden = fires.length === 0; // hide table if no fires
-
-  if (fires.length === 0) {
-    els.firesSummary.textContent = `No active fires within ${bufferMiles} miles.`;
-    return;
-  }
-
-  const word = fires.length === 1 ? "fire" : "fires";
-  // summary text displayed above table
-  els.firesSummary.textContent = `${fires.length} active ${word} within ${bufferMiles} miles, nearest first.`;
-
-  // one row for each fire
-  for (const fire of fires) {
-    const row = document.createElement("tr");
-    const values = [
-      fire.name,
-      `${fire.distanceMiles.toFixed(1)} mi`,
-      formatAcres(fire.acres),
-      formatContained(fire.percentContained),
-      formatDate(fire.discoveredAt),
-    ];
-
-    // separate cell for each value
-    for (const value of values) {
-      const cell = document.createElement("td");
-      cell.textContent = value;
-      row.append(cell);
-    }
-    els.firesBody.append(row);
-  }
-}
-
 // Function to load one trip and show its details, map, and nearby fires
 async function showDetail(id) {
   try {
@@ -283,13 +229,18 @@ async function showDetail(id) {
     els.detailNotes.textContent = trip.notes;
     els.detailNotes.hidden = !trip.notes;
 
-    // Size the map so the whole buffer roughly fits
-    const pad = Math.max(0.1, trip.bufferMiles / MILES_PER_DEGREE);
-    // Point iframe at trailhead
-    els.detailMap.src = osmEmbedUrl({ lon, lat }, pad);
+    // Point iframe at trailhead, sized so the whole buffer roughly fits
+    els.detailMap.src = osmEmbedUrl(
+      { lon, lat },
+      mapPadForMiles(trip.bufferMiles)
+    );
 
     // fill nearby fires table
-    renderNearbyFires(trip.nearbyFires, trip.bufferMiles);
+    renderNearbyFires(
+      { summary: els.firesSummary, table: els.firesTable, body: els.firesBody },
+      trip.nearbyFires,
+      trip.bufferMiles
+    );
 
     // show the section and scroll to it
     els.detail.hidden = false;

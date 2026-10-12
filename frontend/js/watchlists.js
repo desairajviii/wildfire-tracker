@@ -1,6 +1,7 @@
 import { api } from "./api.js";
 import { osmEmbedUrl } from "./embeds.js";
 import { formatAcres, formatDate } from "./format.js";
+import { makeButton, showError, makeFireLink } from "./dom.js";
 
 // About 69 miles per degree of latitude; used to size the map around the radius
 const MILES_PER_DEGREE = 69;
@@ -37,20 +38,6 @@ const fields = {
 // Which watchlist is being edited / shown, or null
 let editingId = null;
 let openDetailId = null;
-
-function showError(el, message) {
-  el.textContent = message;
-  el.hidden = !message;
-}
-
-function makeButton(label, onClick, className) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = className;
-  button.textContent = label;
-  button.addEventListener("click", onClick);
-  return button;
-}
 
 // ----- List -----
 
@@ -199,8 +186,12 @@ function renderNearbyFires(fires, radiusMiles) {
 
   for (const fire of fires) {
     const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    nameCell.append(makeFireLink(fire));
+    row.append(nameCell);
+
     const values = [
-      fire.name,
       `${fire.distanceMiles.toFixed(1)} mi`,
       formatAcres(fire.acres),
       formatDate(fire.discoveredAt),

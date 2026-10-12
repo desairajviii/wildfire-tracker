@@ -40,12 +40,16 @@ export async function api(path, { method = "GET", body } = {}) {
   try {
     data = await res.json();
   } catch {
-    throw new Error(`Request failed (${res.status})`);
+    const error = new Error(`Request failed (${res.status})`);
+    error.status = res.status;
+    throw error;
   }
 
   // 5. Turn server errors into a thrown Error with the server's message
   if (!res.ok) {
-    throw new Error(data?.error || `Request failed (${res.status})`);
+    const error = new Error(data?.error || `Request failed (${res.status})`);
+    error.status = res.status;
+    throw error;
   }
 
   // 6. Success

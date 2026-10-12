@@ -1,0 +1,60 @@
+.reports_list {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.reports_item {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.reports_item:last-child {
+  border-bottom: 0;
+}
+
+.reports_meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+}
+
+.reports_badge {
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.reports_text {
+  margin: 0.4rem 0 0;
+  white-space: pre-wrap;
+}
+
+.reports_actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.reports_form {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 36rem;
+}
+
+.reports_form label {
+  margin-top: 0.5rem;
+}
+
+.reports_buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
