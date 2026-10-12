@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import { connect } from "./db/connection.js";
 import firesRouter from "./routes/fires.js";
 import watchlistsRouter from "./routes/watchlists.js";
-import tripPlansRouter from "./routes/tripPlans.js";
+import tripPlansRouter from "./routes/tripplans.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Render sets PORT

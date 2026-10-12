@@ -8,7 +8,7 @@ import {
   getTripPlan,
   updateTripPlan,
   deleteTripPlan,
-} from "../db/tripPlans.js";
+} from "../db/tripplans.js";
 import { toNumber, toText, toDate, inRange } from "../utils/parse.js";
 
 const router = express.Router();

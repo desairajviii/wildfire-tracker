@@ -8,8 +8,8 @@
 const NAV_LINKS = [
   { href: "index.html", label: "Fires" },
   { href: "watchlists.html", label: "Watchlists" },
-  { href: "trip-plans.html", label: "Trips" },
-  { href: "evacuation-plans.html", label: "Evacuation plans" },
+  { href: "tripplans.html", label: "Trips" },
+  { href: "evacuationplans.html", label: "Evacuation plans" },
   { href: "instructions.html", label: "How to use" },
 ];
 

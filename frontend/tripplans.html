@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trips | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/tripplans.css" />
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/tripplans.js"></script>
+  </head>
+  <body>
+    <!-- Site header, main.js fills the nav links -->
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
+      <nav id="site-nav" aria-label="Main"></nav>
+    </header>
+    <main>
+      <!-- Page intro and page-level errors (failed list load or delete) -->
+      <h1>Trips</h1>
+      <p>
+        Plan hiking trips and check for active fires within the distance you
+        choose around each trail.
+      </p>
+      <p id="page-error" class="message_error" role="alert" hidden></p>
+
+      <!-- List and form - side by side on wide screens, stacked on phones -->
+      <div class="trips_columns">
+        <!-- Trip list: tripPlans.js adds one <li> per trip -->
+        <section aria-labelledby="list-heading">
+          <h2 id="list-heading">Your trips</h2>
+          <ul id="trip-list" class="trips_list"></ul>
+          <p id="list-empty" class="panel note" hidden>
+            No trips yet. Add one with the form to check it for nearby fires.
+          </p>
+        </section>
+
+        <!-- Create / edit form -->
+        <section aria-labelledby="form-heading">
+          <h2 id="form-heading">Add a trip</h2>
+          <form id="trip-form" class="trips_form panel">
+            <p class="note">
+              Demo app - please don't enter real personal info. To find
+              coordinates, right-click the trailhead in Google Maps: the first
+              number is latitude, the second is longitude.
+            </p>
+
+            <!-- Trail name -->
+            <label for="trip-name">Trail name</label>
+            <input
+              id="trip-name"
+              name="trailName"
+              maxlength="100"
+              required
+              placeholder="e.g. Mist Trail"
+            />
+
+            <!-- Trailhead coordinates (latitude, longitude), stored as GeoJSON -->
+            <div class="trips_pair">
+              <div>
+                <label for="trip-lat">Latitude</label>
+                <input
+                  id="trip-lat"
+                  name="lat"
+                  type="number"
+                  step="any"
+                  min="-90"
+                  max="90"
+                  required
+                  placeholder="37.73"
+                />
+              </div>
+              <div>
+                <label for="trip-lon">Longitude</label>
+                <input
+                  id="trip-lon"
+                  name="lon"
+                  type="number"
+                  step="any"
+                  min="-180"
+                  max="180"
+                  required
+                  placeholder="-119.56"
+                />
+              </div>
+            </div>
+
+            <!-- Trip dates, tripPlans.js keeps end date on or after start date -->
+            <div class="trips_pair">
+              <div>
+                <label for="trip-start">Start date</label>
+                <input id="trip-start" name="startDate" type="date" required />
+              </div>
+              <div>
+                <label for="trip-end">End date</label>
+                <input id="trip-end" name="endDate" type="date" required />
+              </div>
+            </div>
+
+            <!-- Buffer radius for the fire check (same range as watchlists) -->
+            <label for="trip-buffer">Fire check distance (miles)</label>
+            <input
+              id="trip-buffer"
+              name="bufferMiles"
+              type="number"
+              min="1"
+              max="500"
+              value="25"
+              required
+            />
+
+            <!-- Notes -->
+            <label for="trip-notes">Notes (optional)</label>
+            <textarea
+              id="trip-notes"
+              name="notes"
+              maxlength="1000"
+              rows="3"
+            ></textarea>
+
+            <!-- Form errors/server validation messages -->
+            <p id="form-error" class="message_error" role="alert" hidden></p>
+
+            <!-- Form buttons. Cancel only shows while editing -->
+            <div class="trips_buttons">
+              <button type="submit">Save trip</button>
+              <button
+                type="button"
+                id="cancel-edit"
+                class="button_secondary"
+                hidden
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- Trip detail - hidden until a trip's View button is clicked -->
+      <section
+        id="trip-detail"
+        class="trips_detail"
+        aria-labelledby="detail-name"
+        hidden
+      >
+        <!-- Trip info: name, dates/coordinates/buffer, notes -->
+        <h2 id="detail-name"></h2>
+        <p id="detail-meta" class="note"></p>
+        <p id="detail-notes" hidden></p>
+
+        <!-- Trailhead map - OpenStreetMap embed, src set by tripPlans.js -->
+        <iframe
+          id="detail-map"
+          class="trips_map"
+          title="Map of the trailhead"
+          loading="lazy"
+        ></iframe>
+
+        <!-- active fires within the buffer, nearest first -->
+        <h3>Active fires nearby</h3>
+        <p class="note">
+          Active fires per NIFC as of the last data update, not a forecast for
+          your trip dates. Check official sources before you go.
+        </p>
+        <p id="fires-summary"></p>
+        <div class="table_wrap">
+          <table id="nearby-fires-table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Acres</th>
+                <th scope="col">Contained</th>
+                <th scope="col">Discovered</th>
+              </tr>
+            </thead>
+            <tbody id="nearby-fires-body"></tbody>
+          </table>
+        </div>
+
+        <!-- Close button to hide the detail section -->
+        <p>
+          <button type="button" id="close-detail" class="button_secondary">
+            Close
+          </button>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
