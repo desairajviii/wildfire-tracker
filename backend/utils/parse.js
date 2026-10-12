@@ -23,7 +23,9 @@ export function toDate(value) {
   }
   const date = new Date(value);
   // Impossible dates roll over ("2026-02-30" becomes Mar 2), so they won't match the input
-  return !Number.isNaN(date.getTime()) && date.toISOString().startsWith(value) ? date : null;
+  return !Number.isNaN(date.getTime()) && date.toISOString().startsWith(value)
+    ? date
+    : null;
 }
 
 // function to check if value is within range
@@ -31,5 +33,3 @@ export function toDate(value) {
 export function inRange(value, min, max) {
   return Number.isFinite(value) && value >= min && value <= max;
 }
-
-
