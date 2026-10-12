@@ -84,17 +84,17 @@ const toDateInput = (iso) => iso.slice(0, 10); // convert to "2026-10-20", the f
 function renderList(items) {
   els.list.replaceChildren(); // clear old rows
   els.listEmpty.hidden = items.length > 0; // show empty message when there are no trips
- 
+
   // build one row per trip
   for (const trip of items) {
     const item = document.createElement("li");
     item.className = "trips_item";
-    
+
     // trail name
     const title = document.createElement("strong");
     title.className = "trips_item-name";
     title.textContent = trip.trailName;
- 
+
     // trip info (dates, nearby fire count)
     const info = document.createElement("span");
     info.className = "trips_item-info";
@@ -106,7 +106,7 @@ function renderList(items) {
       count.className = "status_active";
     }
     info.append(`${formatTripDates(trip)} · `, count);
-    
+
     // view, edit, delete buttons
     const actions = document.createElement("div");
     actions.className = "trips_actions";
@@ -116,10 +116,14 @@ function renderList(items) {
         () => showDetail(trip._id),
         "button_secondary button_small"
       ),
-      makeButton("Edit", () => startEdit(trip), "button_secondary button_small"),
+      makeButton(
+        "Edit",
+        () => startEdit(trip),
+        "button_secondary button_small"
+      ),
       makeButton("Delete", () => removeTrip(trip), "button_danger button_small")
     );
- 
+
     item.append(title, info, actions);
     els.list.append(item);
   }
@@ -141,15 +145,15 @@ async function loadList() {
 function syncEndDateMin() {
   fields.endDate.min = fields.startDate.value;
 }
- 
+
 fields.startDate.addEventListener("change", syncEndDateMin); // update end date limit based on start date
- 
+
 // Function to switch the form to edit mode
 // fills the form with trip values
 function startEdit(trip) {
   editingId = trip._id;
   const [lon, lat] = trip.location.coordinates;
- 
+
   fields.trailName.value = trip.trailName;
   fields.lat.value = lat;
   fields.lon.value = lon;
@@ -158,7 +162,7 @@ function startEdit(trip) {
   fields.bufferMiles.value = trip.bufferMiles;
   fields.notes.value = trip.notes;
   syncEndDateMin();
- 
+
   // show the trip being edited
   els.formHeading.textContent = `Edit "${trip.trailName}"`;
   els.cancelEdit.hidden = false;
@@ -179,7 +183,7 @@ function stopEdit() {
 // save the form
 els.form.addEventListener("submit", async (event) => {
   event.preventDefault(); // stop browser's page-reloading suvmit
- 
+
   const body = {
     trailName: fields.trailName.value,
     lat: fields.lat.value,
@@ -189,17 +193,17 @@ els.form.addEventListener("submit", async (event) => {
     bufferMiles: fields.bufferMiles.value,
     notes: fields.notes.value,
   };
- 
+
   try {
     const path = editingId ? `/api/trip-plans/${editingId}` : "/api/trip-plans";
     const saved = await api(path, {
       method: editingId ? "PUT" : "POST",
       body,
     });
- 
+
     stopEdit(); // reset form for next trip
     await loadList();
- 
+
     // If this trip is open below, refresh it with the new values
     if (openDetailId === saved._id) {
       await showDetail(saved._id);
@@ -208,7 +212,7 @@ els.form.addEventListener("submit", async (event) => {
     showError(els.formError, err.message); // show validation errors
   }
 });
- 
+
 // leave edit mode without saving
 els.cancelEdit.addEventListener("click", stopEdit);
 
@@ -235,16 +239,16 @@ async function removeTrip(trip) {
 function renderNearbyFires(fires, bufferMiles) {
   els.firesBody.replaceChildren();
   els.firesTable.hidden = fires.length === 0; // hide table if no fires
- 
+
   if (fires.length === 0) {
     els.firesSummary.textContent = `No active fires within ${bufferMiles} miles.`;
     return;
   }
- 
+
   const word = fires.length === 1 ? "fire" : "fires";
   // summary text displayed above table
   els.firesSummary.textContent = `${fires.length} active ${word} within ${bufferMiles} miles, nearest first.`;
- 
+
   // one row for each fire
   for (const fire of fires) {
     const row = document.createElement("tr");
@@ -271,22 +275,22 @@ async function showDetail(id) {
   try {
     const trip = await api(`/api/trip-plans/${id}`);
     openDetailId = id;
- 
+
     const [lon, lat] = trip.location.coordinates;
     els.detailName.textContent = trip.trailName; // heading
     els.detailMeta.textContent = `${formatTripDates(trip)}. Trailhead at latitude ${lat.toFixed(4)}, longitude ${lon.toFixed(4)}. Checking ${trip.bufferMiles} miles around it.`;
     // Notes are hidden when empty
     els.detailNotes.textContent = trip.notes;
     els.detailNotes.hidden = !trip.notes;
- 
+
     // Size the map so the whole buffer roughly fits
     const pad = Math.max(0.1, trip.bufferMiles / MILES_PER_DEGREE);
     // Point iframe at trailhead
     els.detailMap.src = osmEmbedUrl({ lon, lat }, pad);
-    
+
     // fill nearby fires table
     renderNearbyFires(trip.nearbyFires, trip.bufferMiles);
- 
+
     // show the section and scroll to it
     els.detail.hidden = false;
     els.detail.scrollIntoView({ behavior: "smooth" });
@@ -302,7 +306,7 @@ function hideDetail() {
   els.detail.hidden = true;
   els.detailMap.src = "about:blank";
 }
- 
+
 // hide details section
 els.closeDetail.addEventListener("click", hideDetail);
 
