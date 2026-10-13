@@ -7,7 +7,7 @@ import watchlistsRouter from "./routes/watchlists.js";
 import tripPlansRouter from "./routes/tripplans.js";
 import reportRouter from "./routes/reports.js";
 import { ensureEvacuationPlanIndexes } from "./db/evacuationplans.js";
-import evacuationPlansRouter from "./routes/evacuationplans.js"; 
+import evacuationPlansRouter from "./routes/evacuationplans.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Render sets PORT
