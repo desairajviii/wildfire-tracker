@@ -10,6 +10,7 @@ import {
   deleteTripPlan,
 } from "../db/tripplans.js";
 import { toNumber, toText, toDate, inRange } from "../utils/parse.js";
+import { withErrors } from "../utils/withErrors.js";
 
 const router = express.Router();
 router.use(requireOwner);
@@ -71,18 +72,6 @@ function parseTripPlan(body = {}) {
 function firesNearTrip(trip) {
   const [lon, lat] = trip.location.coordinates;
   return findFiresNear({ lon, lat }, trip.bufferMiles);
-}
-
-// Catches unexpected errors so every route returns { error } instead of crashing
-function withErrors(handler) {
-  return async (req, res) => {
-    try {
-      await handler(req, res);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Something went wrong" });
-    }
-  };
 }
 
 // GET /api/trip-plans - the owner's trips with a count of nearby fires
