@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evacuation plans | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/evacuationplans.css" />
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/evacuationplans.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
+      <nav id="site-nav" aria-label="Main"></nav>
+    </header>
+
+    <main>
+      <h1>Evacuation plans</h1>
+      <p>
+        Create an evacuation plan for your household with a meeting point, exit
+        strategy, and contact person. Share a read-only link so family can see
+        the plan without an account.
+      </p>
+      <!-- page-level errors -->
+      <p id="page-error" class="message_error" role="alert" hidden></p>
+      <!-- "Link copied"/"Plan deleted" status -->
+      <p id="page-status" class="note" role="status"></p>
+
+      <div class="evacuation_columns">
+        <!-- left column: the owner's saved plans -->
+        <section aria-labelledby="list-heading">
+          <h2 id="list-heading">Your plans</h2>
+          <ul id="plan-list" class="evacuation_list"></ul>
+          <p id="list-empty" class="panel note" hidden>
+            No plans yet. Create one with the form to get a share link.
+          </p>
+        </section>
+
+        <!-- right column: create/edit form - js swaps the heading and button text when editing -->
+        <section aria-labelledby="form-heading">
+          <h2 id="form-heading">Create a plan</h2>
+          <form id="plan-form" class="evacuation_form panel">
+            <!-- demo note-->
+            <p class="note">
+              Demo app, so don't enter real personal info. Anyone with a plan's
+              share link can view it.
+            </p>
+
+            <!-- household name: required, max 100 characters -->
+            <label for="plan-household">Household name</label>
+            <input
+              id="plan-household"
+              name="householdName"
+              maxlength="100"
+              required
+              placeholder="e.g. The Lee family"
+            />
+
+            <!-- meeting point: required, max 200 characters -->
+            <label for="plan-meeting">Meeting point</label>
+            <input
+              id="plan-meeting"
+              name="meetingPoint"
+              maxlength="200"
+              required
+              placeholder="e.g. Library parking lot on Main St"
+            />
+
+            <!-- routes: 1 to 5 text rows, added/removed by js -->
+            <fieldset class="evacuation_group">
+              <legend>Evacuation routes</legend>
+              <p id="routes-hint" class="note">
+                Add 1 to 5 routes, up to 200 characters each.
+              </p>
+              <ol
+                id="routes-list"
+                class="evacuation_rows"
+                aria-describedby="routes-hint"
+              ></ol>
+              <button
+                type="button"
+                id="add-route"
+                class="button_secondary button_small"
+              >
+                Add route
+              </button>
+            </fieldset>
+
+            <!-- contacts: 0 to 10 name/relation rows, added/removed by js -->
+            <fieldset class="evacuation_group">
+              <legend>Contacts (optional)</legend>
+              <p id="contacts-hint" class="note">
+                Up to 10 contacts. Names and relations only. Phone numbers
+                aren't stored.
+              </p>
+              <ul
+                id="contacts-list"
+                class="evacuation_rows"
+                aria-describedby="contacts-hint"
+              ></ul>
+              <button
+                type="button"
+                id="add-contact"
+                class="button_secondary button_small"
+              >
+                Add contact
+              </button>
+            </fieldset>
+
+            <!-- form errors from client or server validation -->
+            <p id="form-error" class="message_error" role="alert" hidden></p>
+
+            <div class="evacuation_buttons">
+              <button type="submit" id="save-plan">Save plan</button>
+              <!-- shown only while editing an existing plan -->
+              <button
+                type="button"
+                id="cancel-edit"
+                class="button_secondary"
+                hidden
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
