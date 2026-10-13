@@ -122,12 +122,23 @@ async function loadList() {
   }
 }
 
-// stops the end date picker from displaying dates before start date
-function syncEndDateMin() {
-  fields.endDate.min = fields.startDate.value;
+// Today as "YYYY-MM-DD" in the user's own time zone (en-CA prints dates that way)
+const todayInput = () => new Date().toLocaleDateString("en-CA");
+
+// Sets the earliest dates the pickers allow:
+// start can't be before `earliest` (today by default), and end can't be
+// before the chosen start date
+function syncDateLimits(earliest = todayInput()) {
+  fields.startDate.min = earliest;
+  fields.endDate.min = fields.startDate.value || earliest;
 }
 
-fields.startDate.addEventListener("change", syncEndDateMin); // update end date limit based on start date
+// When the start date changes, re-limit the end date (keep the same earliest start)
+fields.startDate.addEventListener("change", () =>
+  syncDateLimits(fields.startDate.min)
+);
+
+syncDateLimits(); // apply the limits as soon as the page loads
 
 // Function to switch the form to edit mode
 // fills the form with trip values
@@ -142,7 +153,9 @@ function startEdit(trip) {
   fields.endDate.value = toDateInput(trip.endDate);
   fields.bufferMiles.value = trip.bufferMiles;
   fields.notes.value = trip.notes;
-  syncEndDateMin();
+  // An existing past trip can keep its own start date; new dates still can't be past
+  const ownStart = toDateInput(trip.startDate);
+  syncDateLimits(ownStart < todayInput() ? ownStart : todayInput());
 
   // show the trip being edited
   els.formHeading.textContent = `Edit "${trip.trailName}"`;
@@ -155,7 +168,7 @@ function startEdit(trip) {
 function stopEdit() {
   editingId = null;
   els.form.reset();
-  syncEndDateMin();
+  syncDateLimits(); // back to today as the earliest start
   els.formHeading.textContent = "Add a trip";
   els.cancelEdit.hidden = true;
   showError(els.formError, "");

@@ -14,6 +14,15 @@ import { toNumber, toText, toDate, inRange } from "../utils/parse.js";
 const router = express.Router();
 router.use(requireOwner);
 const MAX_BUFFER_MILES = 500;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+// Earliest start date accepted for a new trip: yesterday (UTC midnight).
+// The extra day keeps users in other time zones from being rejected for "today"
+function earliestStartDate() {
+  const date = new Date(Date.now() - DAY_MS);
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+}
 
 // Function to check the form data convert it for storing
 // returns { errors } if conversion/validation fails, otherwise { data }
@@ -99,6 +108,12 @@ router.post(
     const { errors, data } = parseTripPlan(req.body);
     if (errors) {
       return res.status(400).json({ error: errors.join(" ") });
+    }
+    // New trips can't start in the past (edits are exempt so old trips stay editable)
+    if (data.startDate < earliestStartDate()) {
+      return res
+        .status(400)
+        .json({ error: "Start date can't be in the past." });
     }
     const trip = await createTripPlan(req.ownerId, data);
     res.status(201).json(stripOwner(trip));
