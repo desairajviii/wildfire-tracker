@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to use | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/instructions.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
+      <nav id="site-nav" aria-label="Main"></nav>
+    </header>
+
+    <main>
+      <h1>How to use Wildfire Tracker</h1>
+      <p>
+        Wildfire Tracker shows US wildfires next to the places and trips you
+        care about. You don't need an account. Your saved places, trips, and
+        plans stay tied to this browser.
+      </p>
+
+      <nav class="instructions_toc panel" aria-labelledby="toc-heading">
+        <h2 id="toc-heading">On this page</h2>
+        <ul>
+          <li><a href="#fires">Browse fires</a></li>
+          <li><a href="#reports">Read and post fire reports</a></li>
+          <li><a href="#watchlists">Watch a place</a></li>
+          <li><a href="#trips">Check a hiking trip</a></li>
+          <li><a href="#evacuation">Make an evacuation plan</a></li>
+          <li><a href="#data">About the data</a></li>
+          <li><a href="#privacy">Your data and this browser</a></li>
+        </ul>
+      </nav>
+
+      <section id="fires" aria-labelledby="fires-heading">
+        <h2 id="fires-heading">Browse fires</h2>
+        <ol class="instructions_steps">
+          <li>
+            Open <a href="index.html">Fires</a> to see every fire in the
+            dataset, newest first.
+          </li>
+          <li>
+            Type a two-letter state code, like <strong>CA</strong>, and choose
+            <strong>Apply filters</strong>.
+          </li>
+          <li>
+            Check <strong>Active fires only</strong> to hide fires that are out.
+          </li>
+          <li>
+            Use <strong>Previous</strong> and <strong>Next</strong> to page
+            through results.
+          </li>
+          <li>Choose a fire's name to see its details and reports.</li>
+        </ol>
+        <p class="note">
+          "Unknown" means the fire's size, date, or containment hasn't been
+          reported yet. It doesn't mean zero.
+        </p>
+      </section>
+
+      <section id="reports" aria-labelledby="reports-heading">
+        <h2 id="reports-heading">Read and post fire reports</h2>
+        <p>
+          Reports are what people near a fire are seeing, like smoke, a road
+          closure, or an evacuation.
+        </p>
+        <ol class="instructions_steps">
+          <li>Open a fire from the Fires page, a watchlist, or a trip.</li>
+          <li>
+            Read the reports under <strong>Reports from people nearby</strong>.
+          </li>
+          <li>
+            To add one, choose what you saw, describe it, and choose
+            <strong>Post report</strong>.
+          </li>
+          <li>
+            Your own reports have <strong>Edit</strong> and
+            <strong>Delete</strong> buttons. You can't change anyone else's.
+          </li>
+        </ol>
+        <p class="note">
+          Anyone can read reports, and they aren't verified. For evacuation
+          orders, always follow your local officials.
+        </p>
+      </section>
+
+      <section id="watchlists" aria-labelledby="watchlists-heading">
+        <h2 id="watchlists-heading">Watch a place</h2>
+        <ol class="instructions_steps">
+          <li>Open <a href="watchlists.html">Watchlists</a>.</li>
+          <li>
+            Enter a name, the place's latitude and longitude, and how many miles
+            around it to watch.
+          </li>
+          <li>Choose <strong>Save place</strong>.</li>
+          <li>
+            Choose <strong>View</strong> to see a map of the place and every
+            active fire within your radius, nearest first.
+          </li>
+        </ol>
+        <h3>Finding latitude and longitude</h3>
+        <p>
+          In Google Maps, right-click the spot. The first number in the menu is
+          the latitude and the second is the longitude.
+        </p>
+      </section>
+
+      <section id="trips" aria-labelledby="trips-heading">
+        <h2 id="trips-heading">Check a hiking trip</h2>
+        <ol class="instructions_steps">
+          <li>Open <a href="tripplans.html">Trips</a>.</li>
+          <li>
+            Enter the trail name, the trailhead's latitude and longitude, your
+            dates, and how many miles around the trail to check.
+          </li>
+          <li>
+            The list shows how many active fires are near each trip. Choose
+            <strong>View</strong> for the map and the full list.
+          </li>
+        </ol>
+        <p class="note">
+          Fire checks show fires that are active now, not a forecast for your
+          trip dates. Check again closer to your trip.
+        </p>
+      </section>
+
+      <section id="evacuation" aria-labelledby="evacuation-heading">
+        <h2 id="evacuation-heading">Make an evacuation plan</h2>
+        <ol class="instructions_steps">
+          <li>Open <a href="evacuation-plans.html">Evacuation plans</a>.</li>
+          <li>
+            Add your household's meeting point, routes out, and who's in the
+            household.
+          </li>
+          <li>
+            Choose <strong>Copy share link</strong> and send it to your family.
+            They can view the plan without the app, but only you can change it.
+          </li>
+        </ol>
+        <p class="note">
+          Anyone who has the link can view the plan, so only share it with
+          people you trust.
+        </p>
+      </section>
+
+      <section id="data" aria-labelledby="data-heading">
+        <h2 id="data-heading">About the data</h2>
+        <p>
+          Fire data comes from the National Interagency Fire Center (NIFC) and
+          covers US wildfires from the last five years. The app updates it
+          periodically, so the Fires page shows the date of the last update.
+        </p>
+        <p>
+          "Active" means the fire is on NIFC's current incident list. That can
+          include long-running fires that are mostly contained, so check
+          official sources for conditions on the ground.
+        </p>
+      </section>
+
+      <section id="privacy" aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading">Your data and this browser</h2>
+        <p>
+          There's no login. The app gives this browser a random ID and uses it
+          to keep your places, trips, and plans separate from other people's.
+        </p>
+        <ul>
+          <li>
+            If you clear your browser data or switch browsers, you'll lose
+            access to what you saved.
+          </li>
+          <li>
+            This keeps your data separate, but it isn't real security. Don't
+            enter real personal information.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+.instructions_toc {
+  margin: 1.5rem 0 0.5rem;
+}
+
+.instructions_toc h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.instructions_toc ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.instructions_steps li {
+  margin-bottom: 0.4rem;
+}
+
+/* Keeps section headings clear of the top edge when jumping from the list */
+main section {
+  scroll-margin-top: 1rem;
+}
