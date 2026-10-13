@@ -7,6 +7,7 @@ import watchlistsRouter from "./routes/watchlists.js";
 import tripPlansRouter from "./routes/tripplans.js";
 import reportRouter from "./routes/reports.js";
 import { ensureEvacuationPlanIndexes } from "./db/evacuationplans.js";
+import evacuationPlansRouter from "./routes/evacuationplans.js"; 
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Render sets PORT
@@ -18,7 +19,8 @@ app.use("/api/fires", firesRouter);
 app.use("/api/watchlists", watchlistsRouter);
 app.use("/api/trip-plans", tripPlansRouter);
 app.use("/api/reports", reportRouter);
+app.use("/api/evacuation-plans", evacuationPlansRouter);
 
 await connect();
-await ensureEvacuationPlanIndexes();  // create the unique shareCode index if it doesn't exist yet
+await ensureEvacuationPlanIndexes(); // create the unique shareCode index if it doesn't exist yet
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
