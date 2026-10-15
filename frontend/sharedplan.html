@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- share links do not appear in search results -->
+    <meta name="robots" content="noindex" />
+    <title>Shared evacuation plan | Wildfire Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/sharedplan.css" />
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/sharedplan.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-header_brand" href="index.html">Wildfire Tracker</a>
+      <nav id="site-nav" aria-label="Main"></nav>
+    </header>
+
+    <main>
+      <!-- js replaces with household name -->
+      <h1 id="plan-title">Shared evacuation plan</h1>
+      <!-- loading message, hidden once the plan loads or fails -->
+      <p id="plan-loading" class="note" role="status">Loading plan...</p>
+      <!-- invalid/old link or server error -->
+      <p id="plan-error" class="message_error" role="alert" hidden></p>
+
+      <!-- plan display -->
+      <article
+        id="plan"
+        class="shared_plan panel"
+        aria-labelledby="plan-title"
+        hidden
+      >
+        <h2>Meeting point</h2>
+        <p id="plan-meeting"></p>
+
+        <!-- route 1 -->
+        <h2>Evacuation routes</h2>
+        <ol id="plan-routes" class="shared_list"></ol>
+
+        <h2>Contacts</h2>
+        <ul id="plan-contacts" class="shared_list"></ul>
+        <p id="plan-no-contacts" class="note" hidden>No contacts listed.</p>
+
+        <!-- read-only + demo note, print button -->
+        <div class="shared_footer">
+          <p id="plan-meta" class="note"></p>
+          <button
+            type="button"
+            id="print-plan"
+            class="button_secondary button_small"
+          >
+            Print plan
+          </button>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
