@@ -1,0 +1,128 @@
+/* Evacuation plans page css style sheet. Colors, type, buttons and inputs come from base.css; */
+
+/* Layout: list and form side by side on wide screens, stacked on phones */
+.evacuation_columns {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 56rem) {
+  .evacuation_columns {
+    grid-template-columns: 1fr 22rem;
+    align-items: start;
+  }
+}
+
+/* Plan list */
+
+/* layout evacuation list as one bordered box, rows divided by lines */
+.evacuation_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+/* layout for one plan: name and info on the left, actions on the right */
+.evacuation_item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.evacuation_item:last-child {
+  border-bottom: 0; /* last row border */
+}
+
+.evacuation_item-name {
+  font-weight: 700;
+}
+
+/* meeting point and route/contact counts */
+.evacuation_item-info {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* Edit/copy share link/ new link / delete */
+.evacuation_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+/* Form */
+
+/* stack fields */
+.evacuation_form {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.evacuation_form label {
+  margin-top: 0.5rem;
+}
+
+/* routes and contacts groups */
+.evacuation_group {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+/* legend styled like other field labels */
+.evacuation_group legend {
+  padding: 0;
+  font-weight: 600;
+}
+
+.evacuation_group .note {
+  margin: 0;
+}
+
+/* align text left */
+.evacuation_group > button {
+  justify-self: start;
+}
+
+/* container for repeatable rows */
+.evacuation_rows {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* route row */
+.evacuation_row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* contact row */
+.evacuation_row-contact {
+  grid-template-columns: 1fr 1fr auto;
+}
+
+.evacuation_row input {
+  min-width: 0;
+}
+
+/* save/cancel button */
+.evacuation_buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
