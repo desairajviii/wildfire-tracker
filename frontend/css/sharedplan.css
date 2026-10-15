@@ -1,0 +1,59 @@
+/* Shared evacuation plan page css style sheet. Colors, type and buttons stylingfrom base.css */
+
+/* plan card*/
+.shared_plan {
+  max-width: 40rem;
+  margin-top: 1.5rem;
+}
+
+/* section headings inside the card */
+.shared_plan h2 {
+  margin: 1.5rem 0 0.4rem;
+}
+
+.shared_plan h2:first-child {
+  margin-top: 0; /* no gap above first heading */
+}
+
+.shared_plan p {
+  margin: 0;
+}
+
+/* routes and contacts */
+.shared_list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding-left: 1.4rem; /* leave room for route numbers and bullets */
+}
+
+/* meta note and print button */
+.shared_footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-line);
+}
+
+/* print the plan*/
+@media print {
+  .site-header,
+  #print-plan {
+    display: none;
+  }
+  body {
+    background: #ffffff;
+  }
+  main {
+    padding: 0;
+  }
+  .shared_plan {
+    max-width: none;
+    padding: 0;
+    border: 0;
+  }
+}
