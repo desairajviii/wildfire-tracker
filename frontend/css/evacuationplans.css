@@ -36,7 +36,7 @@
 }
 
 .evacuation_item:last-child {
-  border-bottom: 0; /* last row border */
+  border-bottom: 0; /* remove divider */
 }
 
 .evacuation_item-name {
@@ -89,7 +89,7 @@
   margin: 0;
 }
 
-/* align text left */
+/* keep  button from stretching*/
 .evacuation_group > button {
   justify-self: start;
 }
