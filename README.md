@@ -111,7 +111,7 @@ We used Claude (Anthropic) as an assistant on this project.
 **Rajvi:** Used Claude to plan the work, and to helped to debug the code. Claude also helped set up deployment on Render and fix a
 Prettier and ESLint configuration conflict. I reviewed and tested it's changes and then implemented where needed or asked for other options if I was not convinced.
 
-**Jharshini:**
+**Jharshini:** Primarily used Claude for planning and debugging. Also referred to it for implementation guidance when web sources were insufficient. For html pages, I asked it to provide a list of helpful elements to use for the page.
 
 ## License
 
