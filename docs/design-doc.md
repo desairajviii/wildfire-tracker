@@ -1,6 +1,6 @@
 # Wildfire Tracker: Design Document
 
-**Team:** Rajvi Desai, Jharshini Vejaya Kumar     
+**Team:** Rajvi Desai, Jharshini Vejaya Kumar  
 **Class:** CS5610 Web Development, Northeastern University, Fall 2026
 
 ## Project description
@@ -122,15 +122,16 @@ Viewing a trip opens a section below with the trip's details, a map centered
 on the trailhead, and a table of active fires within the buffer, nearest
 first.
 
-### Evacuation plans page (`evacuation-plans.html`)
+### Evacuation plans page (`evacuationplans.html`)
 
 ![Wireframe of the Evacuation plans page](design/wireframe-evacuation-plans.png)
 
-A list of the user's household plans next to a form for adding or editing one
-(household name, meeting point, routes, and contacts with their relation).
-Viewing a plan shows its details and a Copy share link button. Opening the
-shared link shows a read-only version of the plan, with no edit buttons, so
-family members can see it without using the app.
+A list of the user's household plans next to a form for creating or editing
+one: household name, meeting point, 1 to 5 evacuation routes, and up to 10
+contacts (names and relations only). Each plan in the list has Edit, Copy
+share link, and Delete buttons. Opening the share link shows a read-only
+version of the plan (`sharedplan.html`), with no edit buttons, so family
+members can see it without an account.
 
 ### How to use page (`instructions.html`)
 
