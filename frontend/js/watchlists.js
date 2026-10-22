@@ -117,7 +117,12 @@ function stopEdit() {
   els.cancelEdit.hidden = true;
   showError(els.formError, "");
 }
-
+// Double clicking "Save place" (or pressing Enter twice) sends
+// two POSTs and creates two identical watchlists, since nothing 
+// blocks a second submit while the first is in flight. 
+// Disabling the submit button before the await api(..) and re-enabling it 
+// in a finally would fix it. The same applies to the submit handlers 
+// in tripplans.js:178, exacuationplans.js:263, and reports.js:129
 els.form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -171,7 +176,12 @@ async function removeWatchlist(watchlist) {
 }
 
 // ----- Detail -----
-
+/* This looks like a copy of renderNearbyFires in js/nearbyFires.js, 
+which tripplans.js already imports, and MILES_PER_DEGREE on line 7 is duplicated too. 
+The copies have already drifted: the watchlist table has no "Contained" columm, 
+while the trips table does. Importing the shared module here would rmove 
+about 30 lines and keep the two tables consistent.
+*/
 function renderNearbyFires(fires, radiusMiles) {
   els.firesBody.replaceChildren();
   els.firesTable.hidden = fires.length === 0;
