@@ -116,3 +116,9 @@ Prettier and ESLint configuration conflict. I reviewed and tested it's changes a
 ## License
 
 [MIT](LICENSE)
+
+## Peer Review
+
+Really solid project. The rendering is XSS-safe throughout (all textContent, no innerHTML), there's no mass assignment, invalid IDs give a 404 instead of a crash, and the staging-then-rename seed is a smart way to never wipe live data. My comments are mostly about double-submits and pagination edge cases, plus a few small cleanups. Nice work!
+
+- Julian Bowen
