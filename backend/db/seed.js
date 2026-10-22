@@ -127,6 +127,12 @@ function buildFires(history, current) {
 // function to replace data via staging collection
 // build and index the new data first, then swap it in
 // If anything fails before the rename, the live collection is untouched
+
+/*
+I really like this! Building and indexing fires_staging and then renaming it over fires means 
+a failed or partial NIFC download can never wipe the live data. The MIN_FIRES check is a nice 
+extra safety net.
+*/
 async function replaceFires(db, fires) {
   const staging = db.collection("fires_staging");
   await staging.drop().catch(() => {}); // leftover from a failed run, or none
