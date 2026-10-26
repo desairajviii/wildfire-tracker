@@ -80,6 +80,7 @@ router.get(
   withErrors(async (req, res) => {
     const trips = await listTripPlans(req.ownerId);
     // One $geoNear query per trip, run in parallel
+    // Aaryan: Just a thought: a $count stage after $geoNear could return the count without loading each fire.
     const fireLists = await Promise.all(trips.map(firesNearTrip));
     res.json(
       trips.map((trip, i) => ({
