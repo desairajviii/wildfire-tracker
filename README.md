@@ -116,3 +116,9 @@ Prettier and ESLint configuration conflict. I reviewed and tested it's changes a
 ## License
 
 [MIT](LICENSE)
+
+## Peer Review
+
+Really nice work! The privacy promise holds up across every route, the evacuation plan form is a great accessibility example, and the input parsing is careful with empty fields and impossible dates. I left a few small optional ideas in the code, mostly MongoDB indexes. Overall a well-built, thoughtful project, and a pleasure to review!
+
+- Aaryan Kathole

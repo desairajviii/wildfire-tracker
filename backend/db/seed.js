@@ -131,6 +131,7 @@ async function replaceFires(db, fires) {
   const staging = db.collection("fires_staging");
   await staging.drop().catch(() => {}); // leftover from a failed run, or none
   await staging.insertMany(fires, { ordered: false });
+  // Aaryan: Since the Fires page sorts by discoveredAt, an index on it could make paging even snappier.
   await staging.createIndexes([
     { key: { location: "2dsphere" } },
     { key: { isActive: 1 } },

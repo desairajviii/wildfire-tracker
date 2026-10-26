@@ -11,6 +11,7 @@ export async function createReport(ownerId, data) {
 
 // Public: everyone's reports for one fire, newest first
 export async function listReportsForFire(fireId) {
+  // Aaryan: Small idea: an index on { fireId: 1, createdAt: -1 } could keep this fast as reports grow.
   return reports().find({ fireId }).sort({ createdAt: -1 }).toArray();
 }
 
